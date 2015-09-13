@@ -7,14 +7,16 @@ window.onload = function() {
 };
 
 function importEasyList() {
-    var oReq = new XMLHttpRequest();
-    oReq.onload = setImportedText;
-    oReq.open('get', 'https://easylist-downloads.adblockplus.org/easylist.txt', true);
-    oReq.send();
+    var req = new XMLHttpRequest();
+    req.open('GET', 'https://easylist-downloads.adblockplus.org/easylist.txt', false); 
+    req.send(null);
+    if (req.status == 200) {
+        setImportedText(req.responseText);
+    }
 }
 
-function setImportedText () {
-    document.getElementById('standard-list').value = this.responseText;
+function setImportedText(text) {
+    document.getElementById('standard-list').value = text;
 }
 
 function runEngine() {
